@@ -39,7 +39,7 @@ public class Login : Endpoint<UserLoginRequest>
     var token = JwtBearer.CreateToken(options =>
     {
       options.SigningKey = jwtSecret;
-      options.User.Claims.Add(("EmailAddress", user.Email!));
+      options.User["EmailAddress"] = user.Email!;
     });
     await SendAsync(token);
   }
