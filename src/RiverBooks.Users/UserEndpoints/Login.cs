@@ -36,7 +36,6 @@ public class Login : Endpoint<UserLoginRequest>
     }
 
     var jwtSecret = Config["Auth:JwtSecret"]!;
-    
     var token = JwtBearer.CreateToken(options =>
     {
       options.SigningKey = jwtSecret;

@@ -14,7 +14,7 @@ internal class OrderProcessingDbContext : DbContext
     _dispatcher = dispatcher;
   }
 
-  public DbSet<Order> Orders { get; set; }
+  public DbSet<Order> Orders { get; set; } = null!;
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
