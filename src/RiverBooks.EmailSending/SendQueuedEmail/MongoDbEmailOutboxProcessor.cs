@@ -1,5 +1,4 @@
-﻿using Amazon.Runtime.Internal.Util;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace RiverBooks.EmailSending.SendQueuedEmail;
@@ -10,7 +9,8 @@ public class MongoDbEmailOutboxProcessor : IOutboxProcessor
   private readonly ISendEmail _emailSender;
   private readonly ILogger<MongoDbEmailOutboxProcessor> _logger;
 
-  public MongoDbEmailOutboxProcessor(IMongoCollection<EmailOutboxEntity> emailEntityCollection,
+  public MongoDbEmailOutboxProcessor(
+    IMongoCollection<EmailOutboxEntity> emailEntityCollection,
     ISendEmail emailSender,
     ILogger<MongoDbEmailOutboxProcessor> logger)
   {
@@ -49,7 +49,7 @@ public class MongoDbEmailOutboxProcessor : IOutboxProcessor
         var updateFilter = Builders<EmailOutboxEntity>.Filter.Eq(x => x.Id, unsentEmailEntity.Id);
         var update = Builders<EmailOutboxEntity>.Update.Set("DateTimeUtcProcessed", DateTime.UtcNow);
         var updateResult = await _emailEntityCollection.UpdateOneAsync(updateFilter, update);
-        var timeTaken = TimeSpan.FromTicks(stopwatch.GetElapsedDateTimeTicks());
+                var timeTaken = stopwatch.Elapsed;
         stopwatch.Stop();
 
         _logger.LogInformation("UpdateResult: {result} records modified in {time}ms",
