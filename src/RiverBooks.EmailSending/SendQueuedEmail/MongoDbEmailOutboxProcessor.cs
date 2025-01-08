@@ -3,21 +3,14 @@ using MongoDB.Driver;
 
 namespace RiverBooks.EmailSending.SendQueuedEmail;
 
-public class MongoDbEmailOutboxProcessor : IOutboxProcessor
+public class MongoDbEmailOutboxProcessor(
+  IMongoCollection<EmailOutboxEntity> emailEntityCollection,
+  ISendEmail emailSender,
+  ILogger<MongoDbEmailOutboxProcessor> logger) : IOutboxProcessor
 {
-  private readonly IMongoCollection<EmailOutboxEntity> _emailEntityCollection;
-  private readonly ISendEmail _emailSender;
-  private readonly ILogger<MongoDbEmailOutboxProcessor> _logger;
-
-  public MongoDbEmailOutboxProcessor(
-    IMongoCollection<EmailOutboxEntity> emailEntityCollection,
-    ISendEmail emailSender,
-    ILogger<MongoDbEmailOutboxProcessor> logger)
-  {
-    _emailEntityCollection = emailEntityCollection;
-    _emailSender = emailSender;
-    _logger = logger;
-  }
+  private readonly IMongoCollection<EmailOutboxEntity> _emailEntityCollection = emailEntityCollection;
+  private readonly ISendEmail _emailSender = emailSender;
+  private readonly ILogger<MongoDbEmailOutboxProcessor> _logger = logger;
 
   /// <summary>
   /// Checks for any emails that haven't 
