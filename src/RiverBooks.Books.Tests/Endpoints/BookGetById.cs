@@ -1,8 +1,6 @@
 ﻿using FastEndpoints;
 using FastEndpoints.Testing;
-using FluentAssertions;
 using RiverBooks.Books.BookEndpoints;
-using Xunit.Abstractions;
 
 namespace RiverBooks.Books.Tests.Endpoints;
 
@@ -19,6 +17,6 @@ public class BookGetById(Fixture fixture) : TestBase<Fixture>
     var testResult = await fixture.Client.GETAsync<GetById, GetByIdRequest, BookDto>(request);
 
     testResult.Response.EnsureSuccessStatusCode();
-    testResult.Result.Title.Should().Be(expectedTitle);
+    testResult.Result.Title.ShouldBe(expectedTitle);
   }
 }
