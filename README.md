@@ -1,6 +1,10 @@
 # RiverBooks
 
-Sample application for [Modular Monolith Courses on Dometrain](https://dometrain.com/author/steve-ardalis-smith/). Use 'ARDALIS' for 20% off individual courses (!
+Sample application for [Modular Monolith Courses on Dometrain](https://dometrain.com/author/steve-ardalis-smith/). Use 'ARDALIS' for 20% off individual courses!
+
+## Updates
+
+**2025 July** Removed FluentAssertions and replaced with Shoudly.
 
 ## EF Migration Scripts
 
