@@ -1,9 +1,9 @@
 ﻿using FastEndpoints.Testing;
-using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace RiverBooks.Books.Tests.Endpoints;
 
-public class Fixture(IMessageSink messageSink) 
-  : AppFixture<Program>(messageSink)
+public class Fixture
+  : AppFixture<Program>
 {
 }

@@ -6,7 +6,10 @@ public class BookUpdateTitle
   public void ThrowsGivenEmptyTitle()
   {
     var book = new Book(Guid.NewGuid(), "title", "author", 1m);
-    Assert.Throws<ArgumentException>(() => book.UpdateTitle(""));
+    var ex = Should.Throw<ArgumentException>(() => book.UpdateTitle(""));
+    ex.Message.ShouldContain("Title");
+
+
   }
 
   [Fact]
@@ -14,7 +17,8 @@ public class BookUpdateTitle
   {
     var book = new Book(Guid.NewGuid(), "title", "author", 1m);
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-    Assert.Throws<ArgumentNullException>(() => book.UpdateTitle(null));
+    var ex = Should.Throw<ArgumentException>(() => book.UpdateTitle(""));
+    ex.Message.ShouldContain("Title");
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
   }
 }
