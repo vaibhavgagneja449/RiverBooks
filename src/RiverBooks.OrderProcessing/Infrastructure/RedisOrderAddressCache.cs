@@ -12,10 +12,9 @@ internal class RedisOrderAddressCache : IOrderAddressCache
   private readonly IDatabase _db;
   private readonly ILogger<RedisOrderAddressCache> _logger;
 
-  public RedisOrderAddressCache(ILogger<RedisOrderAddressCache> logger)
-  {
-    var redis = ConnectionMultiplexer.Connect("localhost"); // TODO: Get server from config
-    _db = redis.GetDatabase();
+  public RedisOrderAddressCache(ILogger<RedisOrderAddressCache> logger, IConnectionMultiplexer connectionMultiplexer)
+  {    
+    _db = connectionMultiplexer.GetDatabase();
     _logger = logger;
   }
 
