@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using RiverBooks.OrderProcessing.Infrastructure;
 using RiverBooks.OrderProcessing.Infrastructure.Data;
 using RiverBooks.OrderProcessing.Interfaces;
 using Serilog;
+using StackExchange.Redis;
 
 namespace RiverBooks.Users;
 
@@ -22,6 +24,11 @@ public static class OrderProcessingModuleServicesExtensions
     services.AddScoped<IOrderRepository, EfOrderRepository>();
     services.AddScoped<RedisOrderAddressCache>();
     services.AddScoped<IOrderAddressCache, ReadThroughOrderAddressCache>();
+
+    services.AddSingleton<IConnectionMultiplexer>(sp =>
+    {
+      return ConnectionMultiplexer.Connect(config.GetSection("Redis").GetValue<string>("ConnectionString"));
+    });
 
     // if using MediatR in this module, add any assemblies that contain handlers to the list
     mediatRAssemblies.Add(typeof(OrderProcessingModuleServicesExtensions).Assembly);

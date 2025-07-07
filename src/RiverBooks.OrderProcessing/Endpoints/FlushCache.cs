@@ -14,11 +14,9 @@ internal class FlushCache : EndpointWithoutRequest
   private readonly IDatabase _db;
   private readonly ILogger<FlushCache> _logger;
 
-  public FlushCache(ILogger<FlushCache> logger)
-  {
-    // TODO: use DI
-    var redis = ConnectionMultiplexer.Connect("localhost"); // TODO: Get server from config
-    _db = redis.GetDatabase();
+  public FlushCache(ILogger<FlushCache> logger, IConnectionMultiplexer connectionMultiplexer)
+  {    
+    _db = connectionMultiplexer.GetDatabase();
     _logger = logger;
   }
 
