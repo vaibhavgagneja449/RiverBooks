@@ -11,7 +11,7 @@ internal class BookService : IBookService
 
   public async Task CreateBookAsync(BookDto newBook)
   {
-    var book = new Book(newBook.Id, newBook.Title, newBook.Author, newBook.Price);
+    var book = new Book(newBook.Id, newBook.BookName, newBook.Author, newBook.Price);
 
     await _bookRepository.AddAsync(book);
     await _bookRepository.SaveChangesAsync();
@@ -46,13 +46,13 @@ internal class BookService : IBookService
 
     // handle not found case
 
-    return new BookDto(book!.Id, book.Title, book.Author, book.Price);
+    return new BookDto(book!.Id, book.BookName, book.Author, book.Price);
   }
 
   public async Task<List<BookDto>> ListBooksAsync()
   {
     List<BookDto> books = (await _bookRepository.ListAsync())
-      .Select(book => new BookDto(book.Id, book.Title, book.Author, book.Price))
+      .Select(book => new BookDto(book.Id, book.BookName, book.Author, book.Price))
       .ToList();
 
     return books;

@@ -18,7 +18,7 @@ internal class BookDetailsQueryHandler : IRequestHandler<BookDetailsQuery, Resul
 
     if (book is null) { return Result.NotFound(); }
 
-    var response = new BookDetailsResponse(book.Id, book.Title, book.Author, book.Price);
+    var response = new BookDetailsResponse(book.Id, book.BookName, book.Author, book.Price);
 
     return response;
   }
